@@ -2,7 +2,10 @@ import express from 'express'
 import connect from "./database/mongodb.js"
 import cors from 'cors'
 import bodyParser from 'body-parser';
-import TransactionRouters from "./routes/TransactionApi.js"
+// import AuthApi from "./routes/AuthApi.js";
+import AuthApi from './routes/AuthApi.js'
+import TransactionRouters from "./routes/TransactionApi.js";
+
 const PORT = 4000;
 const app = express();
 
@@ -15,7 +18,7 @@ app.get('/',(req,res)=>{
 });
 
 app.use("/transaction",TransactionRouters);
-
+app.use("/auth",AuthApi);
 await connect();
 
 
