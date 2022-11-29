@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
-import {Link as RouterLink} from 'react-router-dom';
+import {Link as RouterLink, useNavigate} from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -12,6 +12,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
 export default function Register() {
+  const navigate = useNavigate();
+
   const handleSubmit = async(event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -21,6 +23,7 @@ export default function Register() {
       firstName: data.get('firstName'),
       lastName: data.get('lastName'),
     };
+
     const res=await fetch("http://localhost:4000/auth/register",{
         method:"POST",
         body:JSON.stringify(form),
@@ -28,8 +31,9 @@ export default function Register() {
             "content-type":"application/json",
         }
     });
+
     if(res.ok){
-        console.log('success'); 
+       navigate("/");
     }
   };
 
